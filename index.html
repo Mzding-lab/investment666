@@ -108,8 +108,8 @@
   </div>
 
   <script>
-    // 群组基础链接
-    var baseGroupLink = "https://chat.whatsapp.com/GD6RgZ7eanj1J1Y4SZ2PfY";
+    // WhatsApp 群组代码（替换成你自己的）
+    var groupCode = "GD6RgZ7eanj1J1Y4SZ2PfY"; 
 
     // 模拟人数增长
     var peopleCount = 56;
@@ -121,21 +121,18 @@
     setInterval(updateCounter, 2000);
     updateCounter();
 
-    // 点击加入群组
+    // 点击按钮时直接调用 deeplink
     document.getElementById("joinButton").addEventListener("click", function(e) {
       e.preventDefault();
+      var newLink = "whatsapp://chat?code=" + groupCode + "&t=" + Date.now();
 
-      // 每次点击生成新的链接（带时间戳，避免浏览器缓存忽略）
-      var newLink = baseGroupLink + "?t=" + Date.now();
-
-      // 更新备用链接
+      // 更新备用按钮
       document.getElementById("manualLink").href = newLink;
       document.getElementById("manualArea").style.display = "block";
 
-      // 立即跳转
+      // 跳转
       window.location.href = newLink;
     });
   </script>
 </body>
 </html>
-
