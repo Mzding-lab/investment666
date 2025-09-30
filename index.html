@@ -11,8 +11,7 @@
       font-family: Arial, sans-serif;
       color: #fff;
       text-align: center;
-      background: url('https://pic.yupoo.com/mzding/a1c81141/efccda5a.jpg') 
-                  no-repeat center center;
+      background: url('https://pic.yupoo.com/mzding/a1c81141/efccda5a.jpg') no-repeat center center;
       background-size: cover;
       height: 100vh;
       display: flex;
@@ -76,11 +75,11 @@
       background: #1ebe5b;
     }
 
-    .message {
-      font-size: 1.2rem;
-      margin-top: 20px;
-      color: #ffd700;
-      display: none;
+    .small {
+      font-size: 0.9rem;
+      color: #fff;
+      opacity: 0.9;
+      margin-top: 12px;
     }
   </style>
 </head>
@@ -100,36 +99,17 @@
     </div>
 
     <a id="joinButton" class="btn">Join Group to Learn More</a >
-    <div id="redirectMessage" class="message"></div>
+
+    <!-- 备用提示 -->
+    <div id="manualArea" style="display:none;">
+      <div class="small">If it doesn’t open WhatsApp automatically, click below:</div>
+      <a id="manualLink" class="btn" style="margin-top:8px;">Open WhatsApp Group</a >
+    </div>
   </div>
 
   <script>
-    // 群组链接
-    var groupLink = "https://chat.whatsapp.com/GD6RgZ7eanj1J1Y4SZ2PfY";
-
-    // 倒计时跳转逻辑
-    document.getElementById("joinButton").addEventListener("click", function (e) {
-      e.preventDefault();
-      var btn = document.getElementById("joinButton");
-      var msg = document.getElementById("redirectMessage");
-      var countdown = 3;
-
-      // 隐藏按钮，显示提示
-      btn.style.display = "none";
-      msg.style.display = "block";
-      msg.innerHTML = "Redirecting to WhatsApp in " + countdown + " seconds...";
-
-      var timer = setInterval(function () {
-        countdown--;
-        if (countdown > 0) {
-          msg.innerHTML = "Redirecting to WhatsApp in " + countdown + " seconds...";
-        } else {
-          clearInterval(timer);
-          msg.innerHTML = "Opening WhatsApp...";
-          window.location.href = groupLink;
-        }
-      }, 1000);
-    });
+    // 群组基础链接（这里替换成你自己的 WhatsApp 群组链接）
+    var baseGroupLink = "https://chat.whatsapp.com/BDAxf1THZLCApDFJeQ0lpu";
 
     // 模拟人数增长
     var peopleCount = 56;
@@ -140,6 +120,21 @@
     }
     setInterval(updateCounter, 2000);
     updateCounter();
+
+    // 点击加入群组
+    document.getElementById("joinButton").addEventListener("click", function(e) {
+      e.preventDefault();
+
+      // 每次点击生成新的链接（带时间戳，避免浏览器缓存忽略）
+      var newLink = baseGroupLink + "?t=" + Date.now();
+
+      // 更新备用链接
+      document.getElementById("manualLink").href = newLink;
+      document.getElementById("manualArea").style.display = "block";
+
+      // 立即跳转
+      window.location.href = newLink;
+    });
   </script>
 </body>
 </html>
